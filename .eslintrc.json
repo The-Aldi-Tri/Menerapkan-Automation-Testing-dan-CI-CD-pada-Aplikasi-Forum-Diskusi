@@ -1,0 +1,28 @@
+{
+  "ignorePatterns": ["node_modules/", "dist/", "vite.config.js"],
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": ["eslint:recommended", "airbnb", "airbnb/hooks", "prettier"],
+  "plugins": ["react-hooks", "react-refresh"],
+  "rules": {
+    "no-alert": "off",
+    "no-console": "off",
+    // Vite default rules
+    "no-unused-vars": ["error", { "varsIgnorePattern": "^[A-Z_]" }],
+    "react-refresh/only-export-components": [
+      "warn",
+      { "allowConstantExport": true }
+    ],
+    // Exception for react-hook-form library
+    "react/jsx-props-no-spreading": ["error", { "exceptions": ["TextField"] }]
+  }
+}
