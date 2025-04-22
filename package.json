@@ -11,7 +11,8 @@
     "format": "prettier --check .",
     "format:write": "prettier --write .",
     "preview": "vite preview",
-    "test": "vitest --no-watch"
+    "test": "vitest --no-watch",
+    "e2e": "cypress run"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
