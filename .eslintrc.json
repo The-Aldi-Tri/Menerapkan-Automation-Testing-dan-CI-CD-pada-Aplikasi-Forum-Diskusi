@@ -11,7 +11,13 @@
       "jsx": true
     }
   },
-  "extends": ["eslint:recommended", "airbnb", "airbnb/hooks", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:cypress/recommended",
+    "prettier"
+  ],
   "plugins": ["react-hooks", "react-refresh"],
   "rules": {
     "no-alert": "off",
