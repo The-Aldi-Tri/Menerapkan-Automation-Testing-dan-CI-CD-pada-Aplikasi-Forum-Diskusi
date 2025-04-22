@@ -9,7 +9,7 @@ import NewThreadPage from "./pages/NewThreadPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage";
 import ThreadDetailPage from "./pages/ThreadDetailPage";
-import { asyncPreloadProcess } from "./states/isPreload";
+import { asyncPreloadProcess } from "./states/isPreload/isPreloadThunk";
 
 function App() {
   const isPreload = useSelector((state) => state.isPreload);

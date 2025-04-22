@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router";
 import * as yup from "yup";
-import { asyncSetAuthUser } from "../states/authUser";
+import { asyncSetAuthUser } from "../states/authUser/authUserThunk";
 
 const loginSchema = yup.object({
   email: yup.string().email().required(),

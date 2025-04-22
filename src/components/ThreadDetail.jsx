@@ -7,7 +7,7 @@ import {
   asyncToggleDownVoteThreadDetail,
   asyncToggleNeutralizeVoteThreadDetail,
   asyncToggleUpVoteThreadDetail,
-} from "../states/threadDetail";
+} from "../states/threadDetail/threadDetailThunk";
 import AuthorAndTimeElapsed from "./AuthorAndTimeElapsed";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";

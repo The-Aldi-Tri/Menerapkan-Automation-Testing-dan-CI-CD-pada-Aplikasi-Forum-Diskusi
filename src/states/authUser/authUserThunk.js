@@ -1,22 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
-import ApiService from "../utils/api";
-import AuthService from "../utils/auth";
+import ApiService from "../../utils/api";
+import AuthService from "../../utils/auth";
+import { setAuthUser, unsetAuthUser } from "./authUserSlice";
 
-// Slice
-const authUserSlice = createSlice({
-  name: "authUser",
-  initialState: null,
-  reducers: {
-    setAuthUser: (state, action) => action.payload,
-    unsetAuthUser: () => null,
-  },
-});
-
-// Export actions
-export const { setAuthUser, unsetAuthUser } = authUserSlice.actions;
-
-// Async Thunks
 export const asyncSetAuthUser = createAsyncThunk(
   "authUser/asyncSetAuthUser",
   async ({ email, password }, { dispatch }) => {
@@ -65,6 +52,3 @@ export const asyncRegisterUser = createAsyncThunk(
     dispatch(hideLoading());
   },
 );
-
-// Export reducer
-export default authUserSlice.reducer;

@@ -12,7 +12,7 @@ import {
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { asyncUnsetAuthUser } from "../states/authUser";
+import { asyncUnsetAuthUser } from "../states/authUser/authUserThunk";
 
 function AvatarNameMenu() {
   const authUser = useSelector((state) => state.authUser);

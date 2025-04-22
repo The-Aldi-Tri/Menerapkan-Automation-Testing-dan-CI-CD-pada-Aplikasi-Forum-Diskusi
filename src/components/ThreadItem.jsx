@@ -9,7 +9,7 @@ import {
   asyncToggleDownVoteThread,
   asyncToggleNeutralizeVoteThread,
   asyncToggleUpVoteThread,
-} from "../states/threads";
+} from "../states/threads/threadsThunk";
 import truncateText from "../utils/truncateText";
 import AuthorAndTimeElapsed from "./AuthorAndTimeElapsed";
 import LikeDislikeButton from "./LikeDislikeButton";

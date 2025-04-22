@@ -1,17 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+/* eslint-disable import/prefer-default-export */
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
-import ApiService from "../utils/api";
-import { setAuthUser } from "./authUser";
-
-const isPreloadSlice = createSlice({
-  name: "isPreload",
-  initialState: true,
-  reducers: {
-    setIsPreload: (state, action) => action.payload,
-  },
-});
-
-export const { setIsPreload } = isPreloadSlice.actions;
+import ApiService from "../../utils/api";
+import { setAuthUser } from "../authUser/authUserSlice";
+import { setIsPreload } from "./isPreloadSlice";
 
 export const asyncPreloadProcess = createAsyncThunk(
   "isPreload/asyncPreloadProcess",
@@ -29,5 +21,3 @@ export const asyncPreloadProcess = createAsyncThunk(
     dispatch(hideLoading());
   },
 );
-
-export default isPreloadSlice.reducer;

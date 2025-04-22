@@ -7,7 +7,7 @@ import {
   asyncToggleDownVoteComment,
   asyncToggleNeutralizeVoteComment,
   asyncToggleUpVoteComment,
-} from "../states/threadDetail";
+} from "../states/threadDetail/threadDetailThunk";
 import getTimeElapsed from "../utils/getTimeElapsed";
 import LikeDislikeButton from "./LikeDislikeButton";
 

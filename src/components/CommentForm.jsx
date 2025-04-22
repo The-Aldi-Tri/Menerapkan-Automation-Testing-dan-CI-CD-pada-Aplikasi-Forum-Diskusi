@@ -4,7 +4,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
-import { asyncAddComment } from "../states/threadDetail";
+import { asyncAddComment } from "../states/threadDetail/threadDetailThunk";
 
 const commentSchema = yup.object({
   comment: yup.string().min(3).required(),

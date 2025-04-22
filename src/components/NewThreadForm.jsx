@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import * as yup from "yup";
-import { asyncAddThread } from "../states/threads";
+import { asyncAddThread } from "../states/threads/threadsThunk";
 
 const newThreadSchema = yup.object({
   title: yup.string().min(3).required(),

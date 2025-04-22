@@ -1,10 +1,10 @@
+/* eslint-disable import/prefer-default-export */
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
-import ApiService from "../utils/api";
-import { receiveThreads } from "./threads";
-import { receiveUsers } from "./users";
+import ApiService from "../../utils/api";
+import { receiveThreads } from "../threads/threadsSlice";
+import { receiveUsers } from "../users/usersSlice";
 
-// eslint-disable-next-line import/prefer-default-export
 export const asyncPopulateThreadsAndUsers = createAsyncThunk(
   "shared/asyncPopulateThreadsAndUsers",
   async (_, { dispatch }) => {
@@ -17,10 +17,10 @@ export const asyncPopulateThreadsAndUsers = createAsyncThunk(
       ]);
 
       const ownerIds = new Set(threads.map((thread) => thread.ownerId));
-      const usersWithThreads = users.filter((user) => ownerIds.has(user.id));
+      const usersWithThread = users.filter((user) => ownerIds.has(user.id));
 
       dispatch(receiveThreads(threads));
-      dispatch(receiveUsers(usersWithThreads));
+      dispatch(receiveUsers(usersWithThread));
     } catch (error) {
       alert(error.message);
     }

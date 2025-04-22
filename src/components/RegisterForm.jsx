@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router";
 import * as yup from "yup";
-import { asyncRegisterUser } from "../states/authUser";
+import { asyncRegisterUser } from "../states/authUser/authUserThunk";
 
 const registerSchema = yup.object({
   name: yup.string().min(3).required(),

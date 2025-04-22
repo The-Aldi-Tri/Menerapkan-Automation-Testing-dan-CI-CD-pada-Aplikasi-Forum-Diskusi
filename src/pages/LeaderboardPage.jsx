@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import BaseLayout from "../Layouts/BaseLayout";
 import Leaderboard from "../components/Leaderboard";
-import { asyncReceiveLeaderboards } from "../states/leaderboards";
+import { asyncReceiveLeaderboards } from "../states/leaderboards/leaderboardsThunk";
 
 function LeaderboardPage() {
   const dispatch = useDispatch();
