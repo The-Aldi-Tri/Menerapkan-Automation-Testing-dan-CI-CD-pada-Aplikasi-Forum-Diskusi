@@ -45,7 +45,7 @@ describe("login spec", () => {
     }).should("be.visible");
   });
 
-  it("Should show validation errors when the password does not contain uppercase letter", () => {
+  it("should show validation errors when the password does not contain uppercase letter", () => {
     cy.get('input[autocomplete="email"]').type(validEmail);
     cy.get('input[autocomplete="current-password"]').type("lowercase");
     cy.get('button[type="submit"]').click();
@@ -55,7 +55,7 @@ describe("login spec", () => {
     }).should("be.visible");
   });
 
-  it("Should show validation errors when the password does not contain lowercase letter", () => {
+  it("should show validation errors when the password does not contain lowercase letter", () => {
     cy.get('input[autocomplete="email"]').type(validEmail);
     cy.get('input[autocomplete="current-password"]').type("UPPERCASE");
     cy.get('button[type="submit"]').click();
@@ -65,7 +65,7 @@ describe("login spec", () => {
     }).should("be.visible");
   });
 
-  it("Should show validation errors when the password does not contain number", () => {
+  it("should show validation errors when the password does not contain number", () => {
     cy.get('input[autocomplete="email"]').type(validEmail);
     cy.get('input[autocomplete="current-password"]').type("Alphabet");
     cy.get('button[type="submit"]').click();
