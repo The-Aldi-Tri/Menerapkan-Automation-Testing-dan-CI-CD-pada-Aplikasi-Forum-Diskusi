@@ -25,7 +25,7 @@ describe("authUser reducer", () => {
 
     const result = authUserReducer(initialState, action);
 
-    expect(result).toEqual(fakeUser);
+    expect(result).toEqual("error");
   });
 
   it("should unsetAuthUser when given by unsetAuthUser action", () => {
