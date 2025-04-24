@@ -1,12 +1,24 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { faker } from "@faker-js/faker";
+
 describe("login spec", () => {
+  const validEmail = faker.internet.exampleEmail();
+  const validPassword =
+    faker.string.alpha(3, { casing: "upper" }) +
+    faker.string.alpha(3, { casing: "lower" }) +
+    faker.string.numeric(3);
+
+  before(() => {
+    cy.request("POST", "https://forum-api.dicoding.dev/v1/register", {
+      name: faker.internet.username(),
+      email: validEmail,
+      password: validPassword,
+    });
+  });
+
   beforeEach(() => {
     cy.visit("http://127.0.0.1:5173/login");
   });
-
-  // MUST REGISTER FIRST
-  // EDIT THESE VALUES WITH YOUR OWN EMAIL AND PASSWORD
-  const validEmail = "random99@gmail.com";
-  const validPassword = "StrongPa5$";
 
   it("should display all input fields and button", () => {
     cy.get('input[autocomplete="email"]').should("be.visible");
