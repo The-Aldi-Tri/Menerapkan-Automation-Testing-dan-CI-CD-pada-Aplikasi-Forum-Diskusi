@@ -1,3 +1,25 @@
+/**
+ * Test scenario for threadDetail reducer
+ *
+ * - threadDetail reducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return threadDetail when given by receiveThreadDetail action
+ *  - should return null when given by clearThreadDetail action
+ *  - should toggle up vote (add up vote) on threadDetail when given by toggleUpVoteThreadDetail action
+ *  - should toggle up vote (revert up vote) on threadDetail when given by toggleUpVoteThreadDetail action
+ *  - should toggle down vote (add down vote) on threadDetail when given by toggleDownVoteThreadDetail action
+ *  - should toggle down vote (revert down vote) on threadDetail when given by toggleDownVoteThreadDetail action
+ *  - should neutralize up vote on threadDetail when given by toggleNeutralizeVoteThreadDetail action
+ *  - should neutralize down vote on threadDetail when given by toggleNeutralizeVoteThreadDetail action
+ *  - should add comment on threadDetail when given by addComment action
+ *  - should toggle up vote (add up vote) on comment when given by toggleUpVoteComment action
+ *  - should toggle up vote (revert up vote) on comment when given by toggleUpVoteComment action
+ *  - should toggle down vote (add down vote) on comment when given by toggleDownVoteComment action
+ *  - should toggle down vote (revert down vote) on comment when given by toggleDownVoteComment action
+ *  - should neutralize up vote on comment when given by toggleNeutralizeVoteComment action
+ *  - should neutralize down vote on comment when given by toggleNeutralizeVoteComment action
+ */
+
 import { faker } from "@faker-js/faker";
 import { describe, expect, it } from "vitest";
 import threadDetailReducer, {
@@ -12,7 +34,7 @@ import threadDetailReducer, {
   toggleUpVoteThreadDetail,
 } from "./threadDetailSlice";
 
-describe("threadDetail reducer", () => {
+describe("threadDetail reducer function", () => {
   const generateComment = () => ({
     id: faker.string.uuid(),
     content: faker.lorem.lines(),
@@ -61,7 +83,7 @@ describe("threadDetail reducer", () => {
     expect(nextState).toEqual(initialState);
   });
 
-  it("should save thread detail to the state when given by receiveThreadDetail action", () => {
+  it("should return threadDetail when given by receiveThreadDetail action", () => {
     const initialState = null;
     const payload = generateThreadDetail();
     const action = receiveThreadDetail(payload);
@@ -71,7 +93,7 @@ describe("threadDetail reducer", () => {
     expect(nextState).toEqual(payload);
   });
 
-  it("should clear thread detail from the state when given by clearThreadDetail action", () => {
+  it("should return null when given by clearThreadDetail action", () => {
     const initialState = generateThreadDetail();
     const action = clearThreadDetail();
 
@@ -80,7 +102,7 @@ describe("threadDetail reducer", () => {
     expect(nextState).toBeNull();
   });
 
-  it("should toggle up vote (add up vote) threadDetail when given by toggleUpVoteThreadDetail action", () => {
+  it("should toggle up vote (add up vote) on threadDetail when given by toggleUpVoteThreadDetail action", () => {
     const initialState = generateThreadDetail();
     const payload = { userId: faker.string.uuid() };
     const action = toggleUpVoteThreadDetail(payload);
@@ -91,7 +113,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.downVotesBy).not.toContain(payload.userId);
   });
 
-  it("should toggle up vote (revert up vote) threadDetail when given by toggleUpVoteThreadDetail action", () => {
+  it("should toggle up vote (revert up vote) on threadDetail when given by toggleUpVoteThreadDetail action", () => {
     const initialState = generateThreadDetail();
     const payload = { userId: faker.string.uuid() };
     initialState.upVotesBy.push(payload.userId);
@@ -103,7 +125,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.downVotesBy).not.toContain(payload.userId);
   });
 
-  it("should toggle down vote (add down vote) threadDetail when given by toggleDownVoteThreadDetail action", () => {
+  it("should toggle down vote (add down vote) on threadDetail when given by toggleDownVoteThreadDetail action", () => {
     const initialState = generateThreadDetail();
     const payload = { userId: faker.string.uuid() };
     const action = toggleDownVoteThreadDetail(payload);
@@ -114,7 +136,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.downVotesBy).toContain(payload.userId);
   });
 
-  it("should toggle down vote (revert down vote) threadDetail when given by toggleDownVoteThreadDetail action", () => {
+  it("should toggle down vote (revert down vote) on threadDetail when given by toggleDownVoteThreadDetail action", () => {
     const initialState = generateThreadDetail();
     const payload = { userId: faker.string.uuid() };
     initialState.downVotesBy.push(payload.userId);
@@ -126,7 +148,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.downVotesBy).not.toContain(payload.userId);
   });
 
-  it("should neutralize up vote threadDetail when given by toggleNeutralizeVoteThreadDetail action", () => {
+  it("should neutralize up vote on threadDetail when given by toggleNeutralizeVoteThreadDetail action", () => {
     const initialState = generateThreadDetail();
     const payload = { userId: faker.string.uuid() };
     initialState.upVotesBy.push(payload.userId);
@@ -138,7 +160,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.downVotesBy).not.toContain(payload.userId);
   });
 
-  it("should neutralize down vote threadDetail when given by toggleNeutralizeVoteThreadDetail action", () => {
+  it("should neutralize down vote on threadDetail when given by toggleNeutralizeVoteThreadDetail action", () => {
     const initialState = generateThreadDetail();
     const payload = { userId: faker.string.uuid() };
     initialState.downVotesBy.push(payload.userId);
@@ -150,7 +172,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.downVotesBy).not.toContain(payload.userId);
   });
 
-  it("should add comment to threadDetail when given by addComment action", () => {
+  it("should add comment on threadDetail when given by addComment action", () => {
     const initialState = generateThreadDetail();
     const payload = generateComment();
     const action = addComment(payload);
@@ -160,7 +182,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.comments).toContain(payload);
   });
 
-  it("should toggle up vote (add up vote) comment when given by toggleUpVoteComment action", () => {
+  it("should toggle up vote (add up vote) on comment when given by toggleUpVoteComment action", () => {
     const initialState = generateThreadDetail();
     const payload = {
       userId: faker.string.uuid(),
@@ -174,7 +196,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.comments[0].downVotesBy).not.toContain(payload.userId);
   });
 
-  it("should toggle up vote (revert up vote) comment when given by toggleUpVoteComment action", () => {
+  it("should toggle up vote (revert up vote) on comment when given by toggleUpVoteComment action", () => {
     const initialState = generateThreadDetail();
     const payload = {
       userId: faker.string.uuid(),
@@ -189,7 +211,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.comments[0].downVotesBy).not.toContain(payload.userId);
   });
 
-  it("should toggle down vote (add down vote) comment when given by toggleDownVoteComment action", () => {
+  it("should toggle down vote (add down vote) on comment when given by toggleDownVoteComment action", () => {
     const initialState = generateThreadDetail();
     const payload = {
       userId: faker.string.uuid(),
@@ -203,7 +225,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.comments[0].downVotesBy).toContain(payload.userId);
   });
 
-  it("should toggle down vote (revert down vote) comment when given by toggleDownVoteComment action", () => {
+  it("should toggle down vote (revert down vote) on comment when given by toggleDownVoteComment action", () => {
     const initialState = generateThreadDetail();
     const payload = {
       userId: faker.string.uuid(),
@@ -218,7 +240,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.comments[0].downVotesBy).not.toContain(payload.userId);
   });
 
-  it("should neutralize up vote comment when given by toggleNeutralizeVoteComment action", () => {
+  it("should neutralize up vote on comment when given by toggleNeutralizeVoteComment action", () => {
     const initialState = generateThreadDetail();
     const payload = {
       userId: faker.string.uuid(),
@@ -233,7 +255,7 @@ describe("threadDetail reducer", () => {
     expect(nextState.comments[0].downVotesBy).not.toContain(payload.userId);
   });
 
-  it("should neutralize down vote comment when given by toggleNeutralizeVoteComment action", () => {
+  it("should neutralize down vote on comment when given by toggleNeutralizeVoteComment action", () => {
     const initialState = generateThreadDetail();
     const payload = {
       userId: faker.string.uuid(),

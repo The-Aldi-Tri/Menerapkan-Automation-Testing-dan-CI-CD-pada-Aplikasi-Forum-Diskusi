@@ -1,3 +1,32 @@
+/**
+ * Test scenario for threadDetail thunks
+ *
+ * - asyncReceiveThreadDetail thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncToggleUpVoteThreadDetail thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncToggleDownVoteThreadDetail thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncToggleNeutralizeVoteThreadDetail thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncAddComment thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncToggleUpVoteComment thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncToggleDownVoteComment thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncToggleNeutralizeVoteComment thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ */
+
 import { faker } from "@faker-js/faker";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -32,7 +61,7 @@ import {
 vi.mock("react-redux-loading-bar");
 vi.mock("../../utils/api");
 
-describe("threadDetail thunk", () => {
+describe("threadDetail thunks", () => {
   let dispatch;
   let getState;
   window.alert = vi.fn();
@@ -87,8 +116,8 @@ describe("threadDetail thunk", () => {
     ),
   });
 
-  describe("asyncReceiveThreadDetail", () => {
-    it("should dispatch action correctly when data fetching is successful", async () => {
+  describe("asyncReceiveThreadDetail thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       const fakeThreadDetail = generateThreadDetail();
       ApiService.getThreadById.mockResolvedValue({
         detailThread: fakeThreadDetail,
@@ -106,7 +135,7 @@ describe("threadDetail thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and alert correctly when data fetching is failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.getThreadById.mockRejectedValue(new Error("Network Error"));
       const payload = faker.string.uuid();
 
@@ -120,8 +149,8 @@ describe("threadDetail thunk", () => {
     });
   });
 
-  describe("asyncToggleUpVoteThreadDetail", () => {
-    it("should dispatch action correctly when data fetching is successful", async () => {
+  describe("asyncToggleUpVoteThreadDetail thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       ApiService.upVoteThread.mockResolvedValue(undefined);
       const fakeThreadDetail = generateThreadDetail();
       const payload = fakeThreadDetail.id;
@@ -142,7 +171,7 @@ describe("threadDetail thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and alert correctly when data fetching is failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.upVoteThread.mockRejectedValue(new Error("Network Error"));
       const payload = faker.string.uuid();
 
@@ -173,8 +202,8 @@ describe("threadDetail thunk", () => {
     });
   });
 
-  describe("asyncToggleDownVoteThreadDetail", () => {
-    it("should dispatch action correctly when data fetching is successful", async () => {
+  describe("asyncToggleDownVoteThreadDetail thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       ApiService.downVoteThread.mockResolvedValue(undefined);
       const fakeThreadDetail = generateThreadDetail();
       const payload = fakeThreadDetail.id;
@@ -195,7 +224,7 @@ describe("threadDetail thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and alert correctly when data fetching is failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.downVoteThread.mockRejectedValue(new Error("Network Error"));
       const payload = faker.string.uuid();
 
@@ -226,8 +255,8 @@ describe("threadDetail thunk", () => {
     });
   });
 
-  describe("asyncToggleNeutralizeVoteThreadDetail", () => {
-    it("should dispatch action correctly when data fetching is successful", async () => {
+  describe("asyncToggleNeutralizeVoteThreadDetail thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       ApiService.neutralizeVoteThread.mockResolvedValue(undefined);
       const fakeThreadDetail = generateThreadDetail();
       const payload = fakeThreadDetail.id;
@@ -248,7 +277,7 @@ describe("threadDetail thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and alert correctly when data fetching is failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.neutralizeVoteThread.mockRejectedValue(
         new Error("Network Error"),
       );
@@ -281,8 +310,8 @@ describe("threadDetail thunk", () => {
     });
   });
 
-  describe("asyncAddComment", () => {
-    it("should dispatch action correctly when data fetching is successful", async () => {
+  describe("asyncAddComment thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       const fakeThreadDetail = generateThreadDetail();
       const comment = faker.lorem.lines();
       ApiService.createComment.mockResolvedValue({ comment });
@@ -299,7 +328,7 @@ describe("threadDetail thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and alert correctly when data fetching is failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.createComment.mockRejectedValue(new Error("Network Error"));
       const payload = {
         threadId: faker.string.uuid(),
@@ -315,8 +344,8 @@ describe("threadDetail thunk", () => {
     });
   });
 
-  describe("asyncToggleUpVoteComment", () => {
-    it("should dispatch action correctly when data fetching is successful", async () => {
+  describe("asyncToggleUpVoteComment thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       ApiService.upVoteComment.mockResolvedValue(undefined);
       const fakeThreadDetail = generateThreadDetail();
       const payload = {
@@ -337,7 +366,7 @@ describe("threadDetail thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and alert correctly when data fetching is failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.upVoteComment.mockRejectedValue(new Error("Network Error"));
       const fakeThreadDetail = generateThreadDetail();
       const payload = {
@@ -366,8 +395,8 @@ describe("threadDetail thunk", () => {
     });
   });
 
-  describe("asyncToggleDownVoteComment", () => {
-    it("should dispatch action correctly when data fetching is successful", async () => {
+  describe("asyncToggleDownVoteComment thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       ApiService.downVoteComment.mockResolvedValue(undefined);
       const fakeThreadDetail = generateThreadDetail();
       const payload = {
@@ -388,7 +417,7 @@ describe("threadDetail thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and alert correctly when data fetching is failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.downVoteComment.mockRejectedValue(new Error("Network Error"));
       const fakeThreadDetail = generateThreadDetail();
       const payload = {
@@ -417,8 +446,8 @@ describe("threadDetail thunk", () => {
     });
   });
 
-  describe("asyncToggleNeutralizeVoteComment", () => {
-    it("should dispatch action correctly when data fetching is successful", async () => {
+  describe("asyncToggleNeutralizeVoteComment thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       ApiService.neutralizeVoteComment.mockResolvedValue(undefined);
       const fakeThreadDetail = generateThreadDetail();
       const payload = {
@@ -439,7 +468,7 @@ describe("threadDetail thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and alert correctly when data fetching is failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.neutralizeVoteComment.mockRejectedValue(
         new Error("Network Error"),
       );

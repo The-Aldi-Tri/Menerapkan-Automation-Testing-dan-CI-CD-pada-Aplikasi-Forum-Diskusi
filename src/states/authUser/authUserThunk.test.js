@@ -1,3 +1,18 @@
+/**
+ * Test scenario for authUser thunks
+ *
+ * - asyncSetAuthUser thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ *
+ * - asyncUnsetAuthUser thunk function
+ *  - should correctly dispatch action(s)
+ *
+ * - asyncRegisterUser thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ */
+
 import { faker } from "@faker-js/faker";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -14,7 +29,7 @@ vi.mock("../../utils/api");
 vi.mock("../../utils/auth");
 vi.mock("react-redux-loading-bar");
 
-describe("authUser thunk", () => {
+describe("authUser thunks", () => {
   let dispatch;
 
   beforeEach(() => {
@@ -25,8 +40,8 @@ describe("authUser thunk", () => {
     vi.clearAllMocks();
   });
 
-  describe("asyncSetAuthUser thunk", () => {
-    it("should dispatch action correctly when data fetching success", async () => {
+  describe("asyncSetAuthUser thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       const email = faker.internet.exampleEmail();
       const password = faker.internet.password();
       const token = faker.internet.jwt();
@@ -50,7 +65,7 @@ describe("authUser thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and call alert correctly when data fetching failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       const userData = {
         email: faker.internet.exampleEmail(),
         password: faker.internet.password(),
@@ -66,8 +81,8 @@ describe("authUser thunk", () => {
     });
   });
 
-  describe("asyncUnsetAuthUser", () => {
-    it("should dispatch action correctly", async () => {
+  describe("asyncUnsetAuthUser thunk function", () => {
+    it("should correctly dispatch action(s)", async () => {
       await asyncUnsetAuthUser()(dispatch);
 
       expect(dispatch).toHaveBeenCalledWith(showLoading());
@@ -77,8 +92,8 @@ describe("authUser thunk", () => {
     });
   });
 
-  describe("asyncRegisterUser", () => {
-    it("should dispatch action correctly when data fetching success", async () => {
+  describe("asyncRegisterUser thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       const email = faker.internet.exampleEmail();
       const password = faker.internet.password();
       const token = faker.internet.jwt();
@@ -107,7 +122,7 @@ describe("authUser thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and call alert correctly when data fetching failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       const registerData = {
         name: faker.internet.username(),
         email: faker.internet.exampleEmail(),

@@ -1,18 +1,26 @@
+/**
+ * Test scenario for users reducer
+ *
+ * - users reducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return users when given by receiveUsers action
+ */
+
 import { faker } from "@faker-js/faker";
 import { describe, expect, it } from "vitest";
 import usersReducer, { receiveUsers } from "./usersSlice";
 
-describe("users reducer", () => {
+describe("users reducer function", () => {
   it("should return the initial state when given by unknown action", () => {
     const initialState = [];
     const action = { type: "UNKNOWN" };
 
-    const result = usersReducer(initialState, action);
+    const nextState = usersReducer(initialState, action);
 
-    expect(result).toEqual(initialState);
+    expect(nextState).toEqual(initialState);
   });
 
-  it("should return the new user when given by receiveUsers action", () => {
+  it("should return users when given by receiveUsers action", () => {
     const initialState = [];
     const payload = Array.from({ length: 3 }, () => ({
       id: faker.string.uuid(),
@@ -22,8 +30,8 @@ describe("users reducer", () => {
     }));
     const action = receiveUsers(payload);
 
-    const result = usersReducer(initialState, action);
+    const nextState = usersReducer(initialState, action);
 
-    expect(result).toEqual(payload);
+    expect(nextState).toEqual(payload);
   });
 });

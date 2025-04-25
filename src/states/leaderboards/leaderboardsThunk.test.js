@@ -1,3 +1,11 @@
+/**
+ * Test scenario for leaderboards thunks
+ *
+ * - asyncReceiveLeaderboards thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ */
+
 import { faker } from "@faker-js/faker";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -8,19 +16,19 @@ import { asyncReceiveLeaderboards } from "./leaderboardsThunk";
 vi.mock("react-redux-loading-bar");
 vi.mock("../../utils/api");
 
-describe("leaderboards thunk", () => {
-  describe("asyncReceiveLeaderboards", () => {
-    let dispatch;
+describe("leaderboards thunks", () => {
+  let dispatch;
 
-    beforeEach(() => {
-      dispatch = vi.fn();
-    });
+  beforeEach(() => {
+    dispatch = vi.fn();
+  });
 
-    afterEach(() => {
-      vi.clearAllMocks();
-    });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
-    it("should dispatch action correctly when data fetching success", async () => {
+  describe("asyncReceiveLeaderboards thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       const fakeLeaderboards = Array.from({ length: 3 }, () => ({
         user: {
           id: faker.string.uuid(),
@@ -44,7 +52,7 @@ describe("leaderboards thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and call alert correctly when data fetching failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.getLeaderboards.mockRejectedValue(new Error("Network Error"));
       window.alert = vi.fn();
 

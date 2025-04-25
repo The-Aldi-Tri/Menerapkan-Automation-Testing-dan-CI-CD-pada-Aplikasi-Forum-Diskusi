@@ -1,3 +1,20 @@
+/**
+ * Test scenario for threads thunks
+ *
+ * - asyncAddThread thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncToggleUpVoteThread thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncToggleDownVoteThread thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ * - asyncToggleNeutralizeVoteThread thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ */
+
 import { faker } from "@faker-js/faker";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -18,7 +35,7 @@ import {
 vi.mock("../../utils/api");
 vi.mock("react-redux-loading-bar");
 
-describe("threads thunk", () => {
+describe("threads thunks", () => {
   const generateThread = () => ({
     id: faker.string.uuid(),
     title: faker.lorem.sentence(),
@@ -50,8 +67,8 @@ describe("threads thunk", () => {
     vi.clearAllMocks();
   });
 
-  describe("asyncAddThread", () => {
-    it("should dispatch action correctly when data fetching success", async () => {
+  describe("asyncAddThread thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       const fakeThread = generateThread();
       ApiService.createThread.mockResolvedValue({ thread: fakeThread });
       const payload = {
@@ -68,7 +85,7 @@ describe("threads thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and call alert correctly when data fetching failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.createThread.mockRejectedValue(new Error("Network Error"));
       const payload = {
         title: faker.lorem.sentence(),
@@ -84,8 +101,8 @@ describe("threads thunk", () => {
     });
   });
 
-  describe("asyncToggleUpVoteThread", () => {
-    it("should dispatch action correctly when data fetching success", async () => {
+  describe("asyncToggleUpVoteThread thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       ApiService.upVoteThread.mockResolvedValue(undefined);
       const payload = faker.string.uuid();
 
@@ -102,7 +119,7 @@ describe("threads thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and call alert correctly when data fetching failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.upVoteThread.mockRejectedValue(new Error("Network Error"));
       const payload = faker.string.uuid();
 
@@ -126,8 +143,8 @@ describe("threads thunk", () => {
     });
   });
 
-  describe("asyncToggleDownVoteThread", () => {
-    it("should dispatch action correctly when data fetching success", async () => {
+  describe("asyncToggleDownVoteThread thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       ApiService.downVoteThread.mockResolvedValue(undefined);
       const payload = faker.string.uuid();
 
@@ -144,7 +161,7 @@ describe("threads thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and call alert correctly when data fetching failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.downVoteThread.mockRejectedValue(new Error("Network Error"));
       const payload = faker.string.uuid();
 
@@ -166,49 +183,49 @@ describe("threads thunk", () => {
       );
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
+  });
 
-    describe("asyncToggleNeutralizeVoteThread", () => {
-      it("should dispatch action correctly when data fetching success", async () => {
-        ApiService.neutralizeVoteThread.mockResolvedValue(undefined);
-        const payload = faker.string.uuid();
+  describe("asyncToggleNeutralizeVoteThread thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
+      ApiService.neutralizeVoteThread.mockResolvedValue(undefined);
+      const payload = faker.string.uuid();
 
-        await asyncToggleNeutralizeVoteThread(payload)(dispatch, getState);
+      await asyncToggleNeutralizeVoteThread(payload)(dispatch, getState);
 
-        expect(dispatch).toHaveBeenCalledWith(showLoading());
-        expect(dispatch).toHaveBeenCalledWith(
-          toggleNeutralizeVoteThread({
-            threadId: payload,
-            userId: getState().authUser.id,
-          }),
-        );
-        expect(ApiService.neutralizeVoteThread).toHaveBeenCalledWith(payload);
-        expect(dispatch).toHaveBeenCalledWith(hideLoading());
-      });
+      expect(dispatch).toHaveBeenCalledWith(showLoading());
+      expect(dispatch).toHaveBeenCalledWith(
+        toggleNeutralizeVoteThread({
+          threadId: payload,
+          userId: getState().authUser.id,
+        }),
+      );
+      expect(ApiService.neutralizeVoteThread).toHaveBeenCalledWith(payload);
+      expect(dispatch).toHaveBeenCalledWith(hideLoading());
+    });
 
-      it("should dispatch action and call alert correctly when data fetching failed", async () => {
-        ApiService.neutralizeVoteThread.mockRejectedValue(
-          new Error("Network Error"),
-        );
-        const payload = faker.string.uuid();
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
+      ApiService.neutralizeVoteThread.mockRejectedValue(
+        new Error("Network Error"),
+      );
+      const payload = faker.string.uuid();
 
-        await asyncToggleNeutralizeVoteThread(payload)(dispatch, getState);
+      await asyncToggleNeutralizeVoteThread(payload)(dispatch, getState);
 
-        expect(dispatch).toHaveBeenCalledWith(showLoading());
-        expect(dispatch).toHaveBeenCalledWith(
-          toggleNeutralizeVoteThread({
-            threadId: payload,
-            userId: getState().authUser.id,
-          }),
-        );
-        expect(window.alert).toHaveBeenCalledWith("Network Error");
-        expect(dispatch).toHaveBeenCalledWith(
-          toggleNeutralizeVoteThread({
-            threadId: payload,
-            userId: getState().authUser.id,
-          }),
-        );
-        expect(dispatch).toHaveBeenCalledWith(hideLoading());
-      });
+      expect(dispatch).toHaveBeenCalledWith(showLoading());
+      expect(dispatch).toHaveBeenCalledWith(
+        toggleNeutralizeVoteThread({
+          threadId: payload,
+          userId: getState().authUser.id,
+        }),
+      );
+      expect(window.alert).toHaveBeenCalledWith("Network Error");
+      expect(dispatch).toHaveBeenCalledWith(
+        toggleNeutralizeVoteThread({
+          threadId: payload,
+          userId: getState().authUser.id,
+        }),
+      );
+      expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
   });
 });

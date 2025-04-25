@@ -1,3 +1,17 @@
+/**
+ * Test scenario for login flow
+ *
+ * - login spec
+ *  - should display all input fields and the submit button
+ *  - should display error when email and password are empty
+ *  - should display error when email format is invalid
+ *  - should display error when password is too short
+ *  - should display error when password does not contain uppercase letter
+ *  - should display error when password does not contain lowercase letter
+ *  - should display error when password does not contain number
+ *  - should redirect to homepage when email and password are valid
+ */
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { faker } from "@faker-js/faker";
 
@@ -9,6 +23,7 @@ describe("login spec", () => {
     faker.string.numeric(3);
 
   before(() => {
+    // Create (register) an account for login
     cy.request("POST", "https://forum-api.dicoding.dev/v1/register", {
       name: faker.internet.username(),
       email: validEmail,
@@ -20,13 +35,13 @@ describe("login spec", () => {
     cy.visit("http://127.0.0.1:5173/login");
   });
 
-  it("should display all input fields and button", () => {
+  it("should display all input fields and the submit button", () => {
     cy.get('input[autocomplete="email"]').should("be.visible");
     cy.get('input[autocomplete="current-password"]').should("be.visible");
     cy.get('button[type="submit"]').should("be.visible");
   });
 
-  it("should show validation errors when submitting empty form", () => {
+  it("should display error when email and password are empty", () => {
     cy.get('button[type="submit"]').click();
 
     cy.contains("email is a required field", { matchCase: false }).should(
@@ -37,7 +52,7 @@ describe("login spec", () => {
     }).should("be.visible");
   });
 
-  it("should show validation errors when email is invalid", () => {
+  it("should display error when email format is invalid", () => {
     cy.get('input[autocomplete="email"]').type("invalid-email");
     cy.get('input[autocomplete="current-password"]').type(validEmail);
     cy.get('button[type="submit"]').click();
@@ -47,7 +62,7 @@ describe("login spec", () => {
     );
   });
 
-  it("should show validation errors when password is too short", () => {
+  it("should display error when password is too short", () => {
     cy.get('input[autocomplete="email"]').type(validEmail);
     cy.get('input[autocomplete="current-password"]').type("Short");
     cy.get('button[type="submit"]').click();
@@ -57,7 +72,7 @@ describe("login spec", () => {
     }).should("be.visible");
   });
 
-  it("should show validation errors when the password does not contain uppercase letter", () => {
+  it("should display error when password does not contain uppercase letter", () => {
     cy.get('input[autocomplete="email"]').type(validEmail);
     cy.get('input[autocomplete="current-password"]').type("lowercase");
     cy.get('button[type="submit"]').click();
@@ -67,7 +82,7 @@ describe("login spec", () => {
     }).should("be.visible");
   });
 
-  it("should show validation errors when the password does not contain lowercase letter", () => {
+  it("should display error when password does not contain lowercase letter", () => {
     cy.get('input[autocomplete="email"]').type(validEmail);
     cy.get('input[autocomplete="current-password"]').type("UPPERCASE");
     cy.get('button[type="submit"]').click();
@@ -77,7 +92,7 @@ describe("login spec", () => {
     }).should("be.visible");
   });
 
-  it("should show validation errors when the password does not contain number", () => {
+  it("should display error when password does not contain number", () => {
     cy.get('input[autocomplete="email"]').type(validEmail);
     cy.get('input[autocomplete="current-password"]').type("Alphabet");
     cy.get('button[type="submit"]').click();
@@ -87,7 +102,7 @@ describe("login spec", () => {
     }).should("be.visible");
   });
 
-  it("should show homepage when email and password are valid", () => {
+  it("should redirect to homepage when email and password are valid", () => {
     cy.get('input[autocomplete="email"]').type(validEmail);
     cy.get('input[autocomplete="current-password"]').type(validPassword);
     cy.get('button[type="submit"]').click();

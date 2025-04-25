@@ -1,15 +1,24 @@
+/**
+ * Test scenario for authUser reducer
+ *
+ * - authUser reducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return authUser when given by setAuthUser action
+ *  - should return null when given by unsetAuthUser action
+ */
+
 import { faker } from "@faker-js/faker";
 import { describe, expect, it } from "vitest";
 import authUserReducer, { setAuthUser, unsetAuthUser } from "./authUserSlice";
 
-describe("authUser reducer", () => {
+describe("authUser reducer function", () => {
   it("should return the initial state when given by unknown action", () => {
     const initialState = [];
     const action = { type: "UNKNOWN" };
 
-    const result = authUserReducer(initialState, action);
+    const nextState = authUserReducer(initialState, action);
 
-    expect(result).toEqual(initialState);
+    expect(nextState).toEqual(initialState);
   });
 
   const fakeUser = {
@@ -19,21 +28,21 @@ describe("authUser reducer", () => {
     avatar: faker.image.avatar(),
   };
 
-  it("should setAuthUser when given by setAuthUser action", () => {
+  it("should return authUser when given by setAuthUser action", () => {
     const initialState = null;
     const action = setAuthUser(fakeUser);
 
-    const result = authUserReducer(initialState, action);
+    const nextState = authUserReducer(initialState, action);
 
-    expect(result).toEqual(fakeUser);
+    expect(nextState).toEqual(fakeUser);
   });
 
-  it("should unsetAuthUser when given by unsetAuthUser action", () => {
+  it("should return null when given by unsetAuthUser action", () => {
     const initialState = fakeUser;
     const action = unsetAuthUser();
 
-    const result = authUserReducer(initialState, action);
+    const nextState = authUserReducer(initialState, action);
 
-    expect(result).toBe(null);
+    expect(nextState).toBe(null);
   });
 });

@@ -1,15 +1,23 @@
+/**
+ * Test scenario for leaderboards reducer
+ *
+ * - leaderboards reducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return leaderboards when given by receiveLeaderboards action
+ */
+
 import { faker } from "@faker-js/faker";
 import { describe, expect, it } from "vitest";
 import leaderboardsReducer, { receiveLeaderboards } from "./leaderboardsSlice";
 
-describe("leaderboards reducer", () => {
+describe("leaderboards reducer function", () => {
   it("should return the initial state when given by unknown action", () => {
     const initialState = [];
     const action = { type: "UNKNOWN" };
 
-    const result = leaderboardsReducer(initialState, action);
+    const nextState = leaderboardsReducer(initialState, action);
 
-    expect(result).toEqual(initialState);
+    expect(nextState).toEqual(initialState);
   });
 
   it("should return leaderboards when given by receiveLeaderboards action", () => {
@@ -27,8 +35,8 @@ describe("leaderboards reducer", () => {
     ];
     const action = receiveLeaderboards(fakeLeaderboards);
 
-    const result = leaderboardsReducer(initialState, action);
+    const nextState = leaderboardsReducer(initialState, action);
 
-    expect(result).toEqual(fakeLeaderboards);
+    expect(nextState).toEqual(fakeLeaderboards);
   });
 });

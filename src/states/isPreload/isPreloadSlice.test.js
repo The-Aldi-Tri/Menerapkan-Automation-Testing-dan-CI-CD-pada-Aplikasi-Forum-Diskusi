@@ -1,23 +1,31 @@
+/**
+ * Test scenario for isPreload reducer
+ *
+ * - isPreload reducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return the new isPreload value when given by setIsPreload action
+ */
+
 import { describe, expect, it } from "vitest";
 import isPreloadReducer, { setIsPreload } from "./isPreloadSlice";
 
-describe("isPreload reducer", () => {
+describe("isPreload reducer function", () => {
   it("should return the initial state when given by unknown action", () => {
     const initialState = true;
     const action = { type: "UNKNOWN" };
 
-    const result = isPreloadReducer(initialState, action);
+    const nextState = isPreloadReducer(initialState, action);
 
-    expect(result).toEqual(initialState);
+    expect(nextState).toEqual(initialState);
   });
 
-  it("should return the new value when given by setIsPreload action", () => {
+  it("should return the new isPreload value when given by setIsPreload action", () => {
     const initialState = true;
     const payload = false;
     const action = setIsPreload(payload);
 
-    const result = isPreloadReducer(initialState, action);
+    const nextState = isPreloadReducer(initialState, action);
 
-    expect(result).toEqual(payload);
+    expect(nextState).toEqual(payload);
   });
 });

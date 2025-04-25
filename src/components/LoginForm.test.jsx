@@ -1,3 +1,12 @@
+/**
+ * Test scenario for LoginForm component
+ *
+ * - LoginForm component
+ *  - should render all input fields and the submit button
+ *  - should display error when submitting an empty form
+ *  - should dispatch thunk correctly on valid form submission
+ */
+
 import { faker } from "@faker-js/faker";
 import "@testing-library/jest-dom";
 import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
@@ -23,7 +32,7 @@ describe("LoginForm component", () => {
     vi.clearAllMocks();
   });
 
-  it("should render all input fields and button", async () => {
+  it("should render all input fields and the submit button", async () => {
     renderWithProvider(<LoginForm />);
 
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
@@ -31,7 +40,7 @@ describe("LoginForm component", () => {
     expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument();
   });
 
-  it("should shows validation errors when submitting empty form", async () => {
+  it("should display error when submitting an empty form", async () => {
     renderWithProvider(<LoginForm />);
 
     fireEvent.click(screen.getByRole("button", { name: /login/i }));

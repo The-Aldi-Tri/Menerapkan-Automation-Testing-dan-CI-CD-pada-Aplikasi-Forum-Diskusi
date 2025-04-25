@@ -1,3 +1,11 @@
+/**
+ * Test scenario for shared thunks
+ *
+ * - asyncPopulateThreadsAndUsers thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ */
+
 import { faker } from "@faker-js/faker";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -22,8 +30,8 @@ describe("shared thunk", () => {
     vi.clearAllMocks();
   });
 
-  describe("asyncPopulateThreadsAndUsers", () => {
-    it("should dispatch action correctly when data fetching success", async () => {
+  describe("asyncPopulateThreadsAndUsers thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       const fakeUsers = Array.from(
         { length: faker.number.int({ min: 10, max: 20 }) },
         () => ({
@@ -64,7 +72,7 @@ describe("shared thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action and call alert correctly when data fetching failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.getAllThreads.mockRejectedValue(new Error("Network Error"));
       ApiService.getAllUsers.mockRejectedValue(new Error("Network Error"));
       window.alert = vi.fn();

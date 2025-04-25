@@ -1,3 +1,12 @@
+/**
+ * Test scenario for NewThreadForm component
+ *
+ * - NewThreadForm component
+ *  - should render all input fields and the submit button
+ *  - should display error when submitting an empty form
+ *  - should dispatch thunk correctly on valid form submission
+ */
+
 import { faker } from "@faker-js/faker";
 import "@testing-library/jest-dom";
 import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
@@ -23,7 +32,7 @@ describe("NewThreadForm component", () => {
     vi.clearAllMocks();
   });
 
-  it("should render all input fields and button", async () => {
+  it("should render all input fields and the submit button", async () => {
     renderWithProvider(<NewThreadForm />);
 
     expect(screen.getByLabelText(/judul/i)).toBeInTheDocument();
@@ -32,7 +41,7 @@ describe("NewThreadForm component", () => {
     expect(screen.getByRole("button", { name: /buat/i })).toBeInTheDocument();
   });
 
-  it("should shows validation errors when submitting empty form", async () => {
+  it("should display error when submitting an empty form", async () => {
     renderWithProvider(<NewThreadForm />);
 
     fireEvent.click(screen.getByRole("button", { name: /buat/i }));

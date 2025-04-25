@@ -1,3 +1,11 @@
+/**
+ * Test scenario for isPreload thunks
+ *
+ * - asyncPreloadProcess thunk function
+ *  - should correctly dispatch action(s) when data fetching succeeds
+ *  - should correctly dispatch action(s) and call alert when data fetching fails
+ */
+
 import { faker } from "@faker-js/faker";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -9,7 +17,7 @@ import { asyncPreloadProcess } from "./isPreloadThunk";
 vi.mock("react-redux-loading-bar");
 vi.mock("../../utils/api");
 
-describe("isPreload thunk", () => {
+describe("isPreload thunks", () => {
   let dispatch;
 
   beforeEach(() => {
@@ -20,8 +28,8 @@ describe("isPreload thunk", () => {
     vi.clearAllMocks();
   });
 
-  describe("asyncPreloadProcess", () => {
-    it("should dispatch action correctly when data fetching success", async () => {
+  describe("asyncPreloadProcess thunk function", () => {
+    it("should correctly dispatch action(s) when data fetching succeeds", async () => {
       const fakeUser = {
         id: faker.string.uuid(),
         name: faker.internet.username(),
@@ -39,7 +47,7 @@ describe("isPreload thunk", () => {
       expect(dispatch).toHaveBeenCalledWith(hideLoading());
     });
 
-    it("should dispatch action correctly when data fetching failed", async () => {
+    it("should correctly dispatch action(s) and call alert when data fetching fails", async () => {
       ApiService.getOwnProfile.mockRejectedValue(new Error("Network Error"));
 
       await asyncPreloadProcess()(dispatch);
