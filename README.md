@@ -5,6 +5,77 @@
 - Course: **Menjadi React Web Developer Expert**
 - Submission Akhir (2/2): **Menerapkan Automation Testing dan CI/CD pada Aplikasi Forum Diskusi**.
 
+- Nilai Submission: ⭐⭐⭐⭐⭐
+
+  Saran dan Komentar:
+
+  - Tambahkan file vercel.json
+
+    Ketika halaman di Vercel dikunjungi secara langsung dengan path selain root path, yang tampil adalah tampilan 404 dari Vercel. Untuk mengatasinya, kamu perlu menambahkan file **vercel.json** di dalam **root directory**/folder paling luar proyek.
+
+    ```json
+    // vercel.json
+    {
+      "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/"
+        }
+      ]
+    }
+    ```
+
+    Kode di atas menginstruksikan server vercel untuk mengarahkan semua request ke root route karena ini adalah single page application di mana routing halaman dilakukan dari sisi client.
+
+  - Pengujian thunk dengan state based test
+
+    Good job! Kamu berhasil menerapkan pengujian thunk dengan baik. Pengujian yang kamu terapkan saat ini adalah behavioral test, yaitu menguji perilaku-perilaku saat fungsi thunk dijalankan, seperti dispatch action a, dispatch action b, dan dispatch action c.
+
+    FYI. Selain pengujian dengan pendekatan behavioral, kamu juga bisa menggunakan pengujian dengan pendekatan state based test. Dengan pendekatan state, fokus pengujian ada pada hasil akhirnya, yaitu perubahan state.
+
+    Kode yang ditulis dengan pendekatan state based testing, biasanya lebih
+    ringkas karena kita tidak perlu mengetahui detail dari perilaku sistem yang diuji.
+
+    Berikut contoh pengujiannya (tidak merepresentasikan kode yang kamu tulis).
+
+    ```js
+    describe("asyncSetAuthedUser thunk", () => {
+      const store = configureStore({
+        reducer: {
+          authedUser: authedUserReducer,
+        },
+      }); // store tidak di-mock
+
+      beforeEach(() => {
+        api._login = api.login;
+        api._getOwnProfile = api.getOwnProfile;
+      });
+
+      afterEach(() => {
+        api.login = api._login;
+        api.getOwnProfile = api._getOwnProfile;
+        delete api._login;
+        delete api._getOwnProfile;
+      });
+
+      it("should set state correctly when data fetching and posting success", async () => {
+        // arrange
+        api.login = () => Promise.resolve(fakeToken);
+        api.getOwnProfile = () => Promise.resolve(fakeAuthedUser);
+
+        // action
+        await store.dispatch(
+          asyncSetAuthedUser({ email: "john@example.com", password: "123456" }),
+        );
+
+        // assert
+        expect(store.getState().authedUser).toEqual(fakeAuthedUser);
+      });
+
+      // other test
+    });
+    ```
+
 ## Tujuan Akhir
 
 1. Buat pengujian mulai dari Unit, Integration, dan End-to-End pada Aplikasi Forum Diskusi.
